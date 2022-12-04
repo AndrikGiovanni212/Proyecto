@@ -11,6 +11,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -18,7 +19,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.Proyecto.ProyectoAyD.negocio.modelo.Alumno;
 import com.Proyecto.ProyectoAyD.negocio.modelo.Tema;
@@ -51,6 +54,7 @@ public class VistaSubirAvanceAlumno extends JFrame {
 		private static final long serialVersionUID = 1L;
 		private JComboBox <String> comboBoxTema;
 		private JPanel PanelTema;
+		private JTextField textNombreArchivo;
 		private ControlElegirTema controlElegirTema;
 		private Alumno alumn =new Alumno();;
 		public VistaSubirAvanceAlumno() 	 
@@ -108,13 +112,33 @@ public class VistaSubirAvanceAlumno extends JFrame {
 			lbMsj.setBounds(99, 58, 206, 14);
 			PanelAvance.add(lbMsj);
 			
-			JButton btnNewButton_1 = new JButton("Seleccionar Archivo");
-			btnNewButton_1.addActionListener(new ActionListener() {
+			JButton btnSubir = new JButton("Seleccionar Archivo");
+			btnSubir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+				
+					JFileChooser j = new JFileChooser();
+					FileNameExtensionFilter fi = new FileNameExtensionFilter("pdf", "pdf");
+					j.setFileFilter(fi);
+					int se = j.showOpenDialog(btnSubir);
+					if(se == 0) {
+						textNombreArchivo.setText("" + j.getSelectedFile().getName());
+					//	ruta_archivo = j.getSelectedFile().getAbsolutePath();
+					}else {
+						
+					}
 				}
 			});
-			btnNewButton_1.setBounds(0, 83, 125, 23);
-			PanelAvance.add(btnNewButton_1);
+			textNombreArchivo = new JTextField();
+			textNombreArchivo.setEditable(false);
+			textNombreArchivo.setBounds(10, 27, 127, 20);
+			
+			textNombreArchivo.setColumns(10);
+			btnSubir.setBackground(new Color(176, 224, 230));
+			btnSubir.setBounds(10, 149, 137, 23);
+			btnSubir.setBounds(0, 83, 125, 23);
+			PanelAvance.add(btnSubir);
+			PanelAvance.add(textNombreArchivo);
+			
 			
 			JButton btnNewEnviarArchivo = new JButton("Entregar envio");
 			btnNewEnviarArchivo.setBounds(151, 83, 115, 23);
